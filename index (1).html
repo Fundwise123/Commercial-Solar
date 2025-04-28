@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- Save this as index.html for GitHub Pages or direct hosting -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Commercial Solar Project Application</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #00B14F;
+      --primary-hover: #009F47;
+      --font-family: 'Montserrat', sans-serif;
+      --input-border: #ddd;
+      --bg-black: #000;
+      --bg-white: #fff;
+      --text-light: #fff;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; padding:0; font-family:var(--font-family); background:var(--bg-black); color:var(--text-light);
+      display:flex; justify-content:center; align-items:center; min-height:100vh; }
+    .container { width:100%; max-width:480px; background:var(--bg-white); color:#000; border-radius:8px;
+      padding:20px 30px; box-shadow:0 4px 12px rgba(0,0,0,0.1); position:relative; }
+    .landing, .form-container, .thank-you { display:none; }
+    .active { display:block !important; }
+    h1,h2 { color:var(--primary-color); margin:0 0 20px; text-align:center; }
+    p { text-align:center; margin-bottom:20px; }
+    .progress-bar { width:100%; height:6px; background:#e0e0e0; border-radius:4px;
+      overflow:hidden; margin-bottom:20px; }
+    .progress { width:0; height:100%; background:var(--primary-color); transition:width .3s; }
+    .step { display:none; }
+    .step.active { display:block; }
+    .form-group { margin-bottom:20px; text-align:center; }
+    .form-group input, .form-group select, .form-group textarea {
+      width:100%; padding:12px; border:1px solid var(--input-border);
+      border-radius:4px; font-size:1rem; text-align:center; background:var(--bg-white); color:#000;
+    }
+    .checkbox-group { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .checkbox-item { background:#f9f9f9; padding:12px; border-radius:4px; }
+    .checkbox-item label { display:flex; align-items:center; cursor:pointer; color:#000; }
+    .checkbox-item input { margin-right:8px; transform:scale(1.2); }
+    .other-input { display:none; margin-top:8px; padding:10px; border:1px solid var(--input-border);
+      border-radius:4px; background:var(--bg-white); color:#000; }
+    button { display:block; width:100%; padding:14px; background:var(--primary-color); color:#fff;
+      border:none; border-radius:4px; font-size:1rem; cursor:pointer; transition:background .3s;
+      margin-top:10px; }
+    button:hover { background:var(--primary-hover); }
+    #backBtn { position:absolute; top:10px; left:10px; padding:6px 10px; background:transparent;
+      border:1px solid var(--primary-color); border-radius:4px; color:var(--primary-color);
+      font-size:0.8rem; cursor:pointer; }
+    .thank-you p { font-size:1rem; color:#000; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Landing -->
+    <div class="landing active" id="landing">
+      <h1>FundWise Solar Funding</h1>
+      <p>Answer a few questions to get started with your commercial solar project application.</p>
+      <button type="button" id="startBtn" onclick="showForm()">Get Started</button>
+    </div>
+    <!-- Form Container -->
+    <div class="form-container" id="formPage">
+      <div class="progress-bar"><div class="progress" id="progress"></div></div>
+      <button type="button" id="backBtn" onclick="goBack()">Back</button>
+      <form id="solarForm" action="https://formspree.io/f/mnndnaqo" method="POST">
+        <input type="hidden" name="_cc" value="melissa@fundwise.uk">
+        <input type="hidden" name="_subject" value="Commercial Solar Application">
+
+        <!-- Steps 1–24 -->
+        <div class="step" data-step="1">
+          <h2>What is your business name?</h2>
+          <div class="form-group"><input type="text" name="businessName" required></div>
+        </div>
+        <div class="step" data-step="2">
+          <h2>What type of business entity?</h2>
+          <div class="form-group">
+            <select name="businessType" required>
+              <option disabled selected>Select</option>
+              <option>LLC</option><option>Corporation</option>
+              <option>Partnership</option><option>Non-profit</option>
+            </select>
+          </div>
+        </div>
+        <div class="step" data-step="3">
+          <h2>EIN or registration number?</h2>
+          <div class="form-group"><input type="text" name="ein" required></div>
+        </div>
+        <div class="step" data-step="4">
+          <h2>Business address?</h2>
+          <div class="form-group"><input type="text" name="businessAddress" required></div>
+        </div>
+        <div class="step" data-step="5">
+          <h2>Years in business?</h2>
+          <div class="form-group"><input type="number" name="yearsInBusiness" min="0" required></div>
+        </div>
+        <div class="step" data-step="6">
+          <h2>Last year’s revenue (USD)?</h2>
+          <div class="form-group"><input type="number" name="annualRevenue" min="0" required></div>
+        </div>
+        <div class="step" data-step="7">
+          <h2>Contact first name?</h2>
+          <div class="form-group"><input type="text" name="contactFirstName" required></div>
+        </div>
+        <div class="step" data-step="8">
+          <h2>Contact last name?</h2>
+          <div class="form-group"><input type="text" name="contactLastName" required></div>
+        </div>
+        <div class="step" data-step="9">
+          <h2>Contact email?</h2>
+          <div class="form-group"><input type="email" name="_replyto" required></div>
+        </div>
+        <div class="step" data-step="10">
+          <h2>Contact phone?</h2>
+          <div class="form-group"><input type="tel" name="contactPhone" required></div>
+        </div>
+        <div class="step" data-step="11">
+          <h2>Project site address?</h2>
+          <div class="form-group"><input type="text" name="siteAddress" required></div>
+        </div>
+        <div class="step" data-step="12">
+          <h2>Do you own it?</h2>
+          <div class="form-group">
+            <select name="ownership" required>
+              <option disabled selected>Select</option><option>Yes</option><option>No</option>
+            </select>
+          </div>
+        </div>
+        <div class="step" data-step="13">
+          <h2>Average monthly usage (kWh)?</h2>
+          <div class="form-group"><input type="number" name="avgUsage" min="0" required></div>
+        </div>
+        <div class="step" data-step="14">
+          <h2>Average monthly bill (USD)?</h2>
+          <div class="form-group"><input type="number" name="avgBill" min="0" required></div>
+        </div>
+        <div class="step" data-step="15">
+          <h2>Utility provider?</h2>
+          <div class="form-group"><input type="text" name="utilityProvider" required></div>
+        </div>
+        <div class="step" data-step="16">
+          <h2>Describe project</h2>
+          <div class="form-group"><textarea name="projectDescription" rows="3" required></textarea></div>
+        </div>
+        <div class="step" data-step="17">
+          <h2>System size (kW)?</h2>
+          <div class="form-group"><input type="number" name="systemSize" step="0.1" min="0" required></div>
+        </div>
+        <div class="step" data-step="18">
+          <h2>Project cost (USD)?</h2>
+          <div class="form-group"><input type="number" name="projectCost" step="100" min="0" required></div>
+        </div>
+        <div class="step" data-step="19">
+          <h2>Project type?</h2>
+          <div class="form-group">
+            <select name="projectType" required>
+              <option disabled selected>Select</option>
+              <option>Rooftop Solar</option><option>Ground-Mounted</option>
+              <option>Canopy/Carport</option><option>Solar + Battery Storage</option>
+            </select>
+          </div>
+        </div>
+        <div class="step" data-step="20">
+          <h2>Installer (optional)?</h2>
+          <div class="form-group"><input type="text" name="installer"></div>
+        </div>
+        <div class="step" data-step="21">
+          <h2>Eligible for ITC?</h2>
+          <div class="form-group">
+            <select name="itcEligible" required>
+              <option disabled selected>Select</option><option>Yes</option><option>No</option><option>Not Sure</option>
+            </select>
+          </div>
+        </div>
+        <div class="step" data-step="22">
+          <h2>ITC adders?</h2>
+          <div class="checkbox-group">
+            <div class="checkbox-item"><label><input type="checkbox" name="itcAdders[]" value="Domestic Content"> Domestic Content</label></div>
+            <div class="checkbox-item"><label><input type="checkbox" name="itcAdders[]" value="Low-Income Communities"> Low-Income Communities</label></div>
+            <div class="checkbox-item"><label><input type="checkbox" name="itcAdders[]" value="Energy Communities"> Energy Communities</label></div>
+            <div class="checkbox-item"><label><input type="checkbox" id="itcOther" name="itcAdders[]" value="Other"> Other</label><input class="other-input" type="text" name="itcAddersOther" placeholder="Specify"></div>
+          </div>
+        </div>
+        <div class="step" data-step="23">
+          <h2>Additional incentives?</h2>
+          <div class="form-group"><textarea name="additionalIncentives" rows="3"></textarea></div>
+        </div>
+        <div class="step" data-step="24">
+          <h2>Upload docs (optional)</h2>
+          <div class="form-group"><label>Tax Returns (3 yrs)</label><input type="file" name="taxReturns[]" multiple></div>
+          <div class="form-group"><label>Financial Stmts (3 yrs)</label><input type="file" name="financialStmts[]" multiple></div>
+          <div class="form-group"><label>Proposal</label><input type="file" name="proposal"></div>
+          <div class="form-group"><label>Bills</label><input type="file" name="bills[]" multiple></div>
+          <div class="form-group"><label>Other</label><input type="file" name="others[]"></div>
+        </div>
+        <button type="button" id="nextBtn" onclick="nextStep()">Continue</button>
+        <button type="button" id="submitBtn" onclick="submitForm()">Submit</button>
+      </form>
+    </div>
+    <div class="thank-you" id="thankYou"><h1>Thank You!</h1><p>Your application has been received. We will contact you soon.</p></div>
+  </div>
+  <script>
+    let current = 0;
+    const steps = document.querySelectorAll('.step'), total = steps.length;
+    const landing = document.getElementById('landing'), formPage = document.getElementById('formPage'), thankYou = document.getElementById('thankYou'), progress = document.getElementById('progress');
+    function updateStep(){
+      steps.forEach((s,i)=>s.classList.toggle('active',i===current));
+      document.getElementById('backBtn').style.display=current>0?'block':'none';
+      document.getElementById('nextBtn').style.display=current<total-1?'block':'none';
+      document.getElementById('submitBtn').style.display=current===total-1?'block':'none';
+      progress.style.width=(current/(total-1))*100+'%';
+    }
+    function showForm(){ landing.classList.remove('active'); formPage.classList.add('active'); updateStep(); }
+    function goBack(){ if(current>0){ current--; updateStep(); }} 
+    function nextStep(){
+      const req=steps[current].querySelectorAll('input[required],select[required],textarea[required]');
+      for(const i of req){ if(!i.checkValidity()){ i.reportValidity(); return; }}
+      if(current<total-1){ current++; updateStep(); }
+    }
+    async function submitForm(){
+      const f=document.getElementById('solarForm'), res=await fetch(f.action,{method:f.method,body:new FormData(f),headers:{'Accept':'application/json'}});
+      if(res.ok){ formPage.classList.remove('active'); thankYou.classList.add('active'); } else { alert('Submission failed'); }
+    }
+    document.addEventListener('DOMContentLoaded',()=>{
+      updateStep();
+      document.getElementById('itcOther').addEventListener('change',e=>{
+        const other=document.querySelector('.other-input'); other.style.display=e.target.checked?'block':'none'; other.required=e.target.checked;
+      });
+    });
+  </script>
+</body>
+</html>
